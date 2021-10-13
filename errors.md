@@ -92,6 +92,8 @@ if (newAccount) {
 
 # 소셜 계정 만들기 오류 (ver.9)
 
+in `src/routes/Auth.js`
+
 ```javascript
 if (name === "google") {
       provider = new firebaseInstance.auth.GoogleAuthProvider();
