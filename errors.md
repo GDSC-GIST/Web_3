@@ -19,6 +19,8 @@ import something from "fbase";
 
     <https://hello-bryan.tistory.com/134>
 
+`.env`**는 수정하고 나면 재시작해야합니다!**
+
 
 
 # can't import from "firebase/app" (ver.9)
