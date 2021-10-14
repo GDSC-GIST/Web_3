@@ -1,2 +1,6 @@
 # Web_3
-## 이지아의 공부장
+> Information
+
+>>이지아(EECS)
+
+>>contact: abell2667@gm.gist.ac.kr
