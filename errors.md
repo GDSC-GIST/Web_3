@@ -47,7 +47,14 @@ set default export
 export default firebase.initializeApp(firebaseConfig);
 ```
 
+* `export default`는 모듈에 개체가 하나만 있다는 사실을 나타낼 때 사용.
 
+* `default`를 붙이면 `{}` 없이 import 할 수 있음.
+
+`src/routes/Auth.js`에서 중괄호를 사용하여 import했기 떄문에 default export가 필요했던 것으로 보임.
+```javascript
+import {authService, firebaseInstance} from "fbase";
+```
 
 # .auth() method in fbase.js (ver.9)
 
