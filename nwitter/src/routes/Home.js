@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import Nweet from "components/Nweet";
 import { dbService } from "fbase";
 import { addDoc, collection, onSnapshot, query, orderBy } from "@firebase/firestore";
 
 const Home = ( {userObj} ) => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    useEffect(() => {
+    useEffect(() => {  // Snapshot부분이 Realtime으로 만들어줌
         const q = query(
             collection(dbService,"nweets"),
             orderBy("createAt","desc"),
@@ -47,9 +48,7 @@ const Home = ( {userObj} ) => {
             </form>
             <div>
                 {nweets.map((nweet) => (
-                <div key = {nweet.id}>
-                    <h4>{nweet.text}</h4>
-                </div>
+                    <Nweet key={nweet.id} nweetObj = {nweet} isOwner={nweet.creatorId === userObj.uid} />
                 ))}
             </div>
         </div>
