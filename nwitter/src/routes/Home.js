@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
-import { addDoc, collection, getDocs, query } from "@firebase/firestore";
+import { addDoc, collection, onSnapshot, query, orderBy } from "@firebase/firestore";
 
-const Home = () => {
+const Home = ( {userObj} ) => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    const getNweets = async () => {
-        const q = query(collection(dbService, "nweets"));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-        const nweetObj = {
-        ...doc.data(),
-        id: doc.id,
-        }
-        setNweets(prev => [nweetObj, ...prev]);
+    useEffect(() => {
+        const q = query(
+            collection(dbService,"nweets"),
+            orderBy("createAt","desc"),
+        );
+        onSnapshot(q, (snapshot) => {
+            const nweetArray = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setNweets(nweetArray);
         });
-        };
-        useEffect(() => {
-        getNweets();
-        }, []);
+    }, []);
     const onSubmit = async(event) => {
         event.preventDefault();
         try {
             const docRef = await addDoc(collection(dbService, "nweets"),{
-                nweet,
-                createAt: Date.now(),
+                text:nweet,
+                createAt:Date.now(),
+                creatorId:userObj.uid,
             });
             console.log("Document written with ID: ", docRef.id);
         }
@@ -32,7 +32,7 @@ const Home = () => {
             console.error("Error adding document: ",error);
         }
     setNweet("");
-};
+    };
     const onChange = (event) => {
         const {
              target: { value },
@@ -46,9 +46,9 @@ const Home = () => {
                 <input type= "submit" value = "Nweet" />
             </form>
             <div>
-                {nweets.map(nweet => (
+                {nweets.map((nweet) => (
                 <div key = {nweet.id}>
-                    <h4>{nweet.nweet}</h4>
+                    <h4>{nweet.text}</h4>
                 </div>
                 ))}
             </div>
