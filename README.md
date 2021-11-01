@@ -1,6 +1,6 @@
 # GDSC_GIST Web_3
   
-  > ### 황장원 (Lead)
+  > ### 황장원 (Lead) : Firebase version 9.1.3 base
   >> Email: star4007lg@gmail.com
   
   > ### 이지아
